@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Year 2026 | Classic Luxury 3D</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --gold-primary: #D4AF37;
+  --gold-light: #F9E076;
+  --deep-black: #0a0a0a;
+  --ivory: #FFFFF0;
+  --glass: rgba(255, 255, 255, 0.03);
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  height: 100vh;
+  /* Background Classic Dark Marble */
+  background: radial-gradient(circle at center, #1c1c1c 0%, #000 100%);
+  font-family: 'Montserrat', sans-serif;
+  overflow: hidden;
+  color: #fff;
+}
+
+/* ===== ORNAMENTAL ELEMENTS ===== */
+.ornament {
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+}
+.o-1 { top: -100px; left: -100px; border-width: 20px; }
+.o-2 { bottom: -100px; right: -100px; border-width: 2px; }
+
+/* ===== MAIN 3D STAGE ===== */
+.stage {
+  position: relative;
+  z-index: 5;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 2000px;
+}
+
+/* ===== CLASSIC 3D CARD ===== */
+.card-3d {
+  width: 90%;
+  max-width: 480px;
+  padding: 4rem 2.5rem;
+  border-radius: 15px; /* Siku lebih tegas untuk kesan klasik */
+  background: linear-gradient(135deg, rgba(20,20,20,0.9), rgba(0,0,0,0.95));
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 
+    0 50px 100px rgba(0,0,0,0.9),
+    inset 0 0 50px rgba(212, 175, 55, 0.05);
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out;
+  text-align: center;
+}
+
+/* Gold Frame */
+.card-3d::after {
+  content: '';
+  position: absolute;
+  inset: 15px;
+  border: 1px solid var(--gold-primary);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* ===== TYPOGRAPHY ===== */
+.brand {
+  font-family: 'Montserrat';
+  font-weight: 300;
+  font-size: 0.75rem;
+  letter-spacing: 6px;
+  color: var(--gold-primary);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  letter-spacing: 2px;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  /* Efek Engraved Gold */
+  background: linear-gradient(to bottom, #f9e076 0%, #d4af37 50%, #b8860b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.script-font {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.2rem;
+  color: #fff;
+  opacity: 0.9;
+  margin-bottom: 2rem;
+  display: block;
+}
+
+#quote {
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(255,255,255,0.8);
+  margin: 2rem 0;
+  min-height: 80px;
+  line-height: 1.6;
+}
+
+/* ===== TIMER CLASSIC ===== */
+.timer {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 3rem;
+}
+.time-box {
+  transform: translateZ(40px);
+}
+.time-box span {
+  display: block;
+  font-family: 'Cinzel';
+  font-size: 1.8rem;
+  color: #fff;
+  border-bottom: 1px solid var(--gold-primary);
+}
+.time-box small {
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  color: var(--gold-primary);
+}
+
+/* ===== LUXE BUTTONS ===== */
+.btn-luxe {
+  width: 100%;
+  padding: 12px;
+  background: var(--gold-primary);
+  border: none;
+  color: #000;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+  transition: 0.3s;
+  transform: translateZ(50px);
+}
+.btn-luxe:hover {
+  background: var(--gold-light);
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+}
+
+.btn-outline-gold {
+  background: transparent;
+  border: 1px solid var(--gold-primary);
+  color: var(--gold-primary);
+}
+.btn-outline-gold:hover {
+  background: rgba(212, 175, 55, 0.1);
+  color: var(--gold-light);
+}
+
+/* ===== MUSIC CONTROL ===== */
+.music-box {
+  position: fixed;
+  bottom: 40px;
+  left: 40px;
+  z-index: 100;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  color: var(--gold-primary);
+}
+.music-box i { font-size: 1.5rem; }
+
+/* Canvas for subtle dust/sparkle */
+canvas { position: fixed; inset: 0; z-index: 2; pointer-events: none; }
+</style>
+</head>
+
+<body>
+
+<div class="ornament o-1"></div>
+<div class="ornament o-2"></div>
+<canvas id="sparkles"></canvas>
+
+<div class="stage">
+  <div class="card-3d" id="card">
+    <div class="brand" id="yearLabel">Announcing 2026</div>
+    <h1>New Year</h1>
+    <span class="script-font">Celebration</span>
+
+    <div class="timer">
+      <div class="time-box"><span id="d">00</span><small>DD</small></div>
+      <div class="time-box"><span id="h">00</span><small>HH</small></div>
+      <div class="time-box"><span id="m">00</span><small>MM</small></div>
+      <div class="time-box"><span id="s">00</span><small>SS</small></div>
+    </div>
+
+    <div id="quote">"Sebuah awal yang megah untuk impian yang lebih besar. Semoga tahun ini membawa kedamaian dan kejayaan."</div>
+
+    <button class="btn-luxe" onclick="changeQuote()">Buka Harapan Baru</button>
+    <button class="btn-luxe btn-outline-gold" onclick="shareWA()">
+      <i class="bi bi-whatsapp me-2"></i> Bagikan Keanggunan
+    </button>
+  </div>
+</div>
+
+<div class="music-box" id="musicBtn">
+  <i class="bi bi-play-circle" id="mIcon"></i>
+  <span>PIANO INSTRUMENT</span>
+</div>
+
+<audio id="bgm" loop>
+  <source src="Spring-Flowers(chosic.com).mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* ===== CLASSIC QUOTES ===== */
+const quotes = [
+  "Semoga keberuntungan dan keanggunan menyertai setiap langkah Anda di tahun yang baru.",
+  "Keberhasilan adalah hasil dari ketenangan dan konsistensi. Selamat Tahun Baru.",
+  "Jadikan tahun ini sebagai mahakarya dalam sejarah perjalanan hidup Anda.",
+  "Masa depan yang cerah menanti mereka yang memiliki hati yang damai.",
+  "Selamat Tahun Baru. Semoga kesehatan dan kebahagiaan menjadi tamu setia di rumah Anda.",
+  "Tahun baru, lembaran putih, dan tinta emas kesuksesan di tangan Anda.",
+  "Mari menyambut 2026 dengan senyuman yang paling tulus dan harapan yang paling tinggi."
+];
+
+/* ===== 3D INTERACTION ===== */
+const card = document.getElementById('card');
+document.addEventListener('mousemove', e => {
+  const x = (window.innerWidth / 2 - e.clientX) / 40;
+  const y = (window.innerHeight / 2 - e.clientY) / 40;
+  card.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
+});
+
+/* ===== SENSOR GERAK HP (GYROSCOPE) ===== */
+if (window.DeviceOrientationEvent) {
+  window.addEventListener('deviceorientation', e => {
+    const x = e.gamma / 2; 
+    const y = e.beta / 2;
+    card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+  });
+}
+
+function changeQuote() {
+  const q = document.getElementById('quote');
+  q.style.opacity = 0;
+  setTimeout(() => {
+    q.innerText = `"${quotes[Math.floor(Math.random() * quotes.length)]}"`;
+    q.style.opacity = 1;
+  }, 400);
+}
+
+/* ===== COUNTDOWN ===== */
+const targetYear = new Date().getFullYear() + 1;
+document.getElementById('yearLabel').innerText = `Preparing for ${targetYear}`;
+const targetDate = new Date(`Jan 1, ${targetYear} 00:00:00`).getTime();
+
+setInterval(() => {
+  const diff = targetDate - Date.now();
+  if (diff > 0) {
+    document.getElementById('d').innerText = Math.floor(diff / 86400000).toString().padStart(2, '0');
+    document.getElementById('h').innerText = Math.floor(diff % 86400000 / 3600000).toString().padStart(2, '0');
+    document.getElementById('m').innerText = Math.floor(diff % 3600000 / 60000).toString().padStart(2, '0');
+    document.getElementById('s').innerText = Math.floor(diff % 60000 / 1000).toString().padStart(2, '0');
+  }
+}, 1000);
+
+/* ===== PIANO MUSIC LOGIC ===== */
+const audio = document.getElementById('bgm');
+const mIcon = document.getElementById('mIcon');
+document.getElementById('musicBtn').onclick = () => {
+  if (audio.paused) {
+    audio.play();
+    mIcon.className = 'bi bi-pause-circle';
+  } else {
+    audio.pause();
+    mIcon.className = 'bi bi-play-circle';
+  }
+};
+
+/* ===== SUBTLE GOLD DUST ===== */
+const canvas = document.getElementById('sparkles');
+const ctx = canvas.getContext('2d');
+let stars = [];
+
+function init() {
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+  for (let i = 0; i < 100; i++) {
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: Math.random() * 1.5,
+      speed: Math.random() * 0.5
+    });
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "rgba(212, 175, 55, 0.3)";
+  stars.forEach(s => {
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+    ctx.fill();
+    s.y -= s.speed;
+    if (s.y < 0) s.y = canvas.height;
+  });
+  requestAnimationFrame(draw);
+}
+
+init();
+draw();
+
+function shareWA() {
+  const text = encodeURIComponent("Selamat Tahun Baru! Saya mengirimkan kartu ucapan klasik nan mewah ini khusus untuk Anda: " + window.location.href);
+  window.open(`https://wa.me/?text=${text}`, '_blank');
+}
+</script>
+</body>
+</html>
