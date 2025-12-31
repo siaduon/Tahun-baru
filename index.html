@@ -3,38 +3,267 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>New Year 2026 | Classic Luxury 3D</title>
+<title>Live Time 2026 | Classic Luxury</title>
 
+<!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-:root {
-  --gold-primary: #D4AF37;
-  --gold-light: #F9E076;
-  --deep-black: #0a0a0a;
-  --ivory: #FFFFF0;
-  --glass: rgba(255, 255, 255, 0.03);
+:root{
+  --gold:#D4AF37;
+  --gold-light:#F9E076;
+  --dark:#050505;
 }
 
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  height: 100vh;
-  /* Background Classic Dark Marble */
-  background: radial-gradient(circle at center, #1c1c1c 0%, #000 100%);
-  font-family: 'Montserrat', sans-serif;
-  overflow: hidden;
-  color: #fff;
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  height:100vh;
+  background:radial-gradient(circle at center,#1c1c1c,#000);
+  font-family:'Montserrat',sans-serif;
+  color:#fff;
+  overflow:hidden;
 }
 
-/* ===== ORNAMENTAL ELEMENTS ===== */
-.ornament {
-  position: fixed;
-  width: 300px;
-  height: 300px;
-  border: 1px solid rgba(212, 175, 55, 0.1);
+/* ===== STAGE ===== */
+.stage{
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  perspective:2000px;
+}
+
+/* ===== CARD ===== */
+.card-3d{
+  width:90%;
+  max-width:480px;
+  padding:4rem 2.5rem;
+  background:linear-gradient(135deg,rgba(20,20,20,.9),rgba(0,0,0,.95));
+  border:1px solid rgba(212,175,55,.35);
+  border-radius:18px;
+  text-align:center;
+  box-shadow:0 50px 120px rgba(0,0,0,.9);
+  transform-style:preserve-3d;
+  transition:.15s ease-out;
+  position:relative;
+}
+
+.card-3d::after{
+  content:"";
+  position:absolute;
+  inset:16px;
+  border:1px solid var(--gold);
+  opacity:.4;
+}
+
+/* ===== TEXT ===== */
+.brand{
+  letter-spacing:6px;
+  font-size:.75rem;
+  color:var(--gold);
+  margin-bottom:1rem;
+}
+
+h1{
+  font-family:'Cinzel',serif;
+  font-size:3rem;
+  background:linear-gradient(to bottom,#f9e076,#d4af37,#b8860b);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.script{
+  font-family:'Great Vibes',cursive;
+  font-size:2.2rem;
+  margin-bottom:2rem;
+}
+
+/* ===== TIMER (COUNT UP) ===== */
+.timer{
+  display:flex;
+  justify-content:center;
+  gap:16px;
+  margin-bottom:2.5rem;
+}
+
+.time-box span{
+  display:block;
+  font-family:'Cinzel';
+  font-size:2rem;
+  border-bottom:1px solid var(--gold);
+}
+
+.time-box small{
+  font-size:.6rem;
+  letter-spacing:2px;
+  color:var(--gold);
+}
+
+/* ===== BUTTON ===== */
+.btn-gold{
+  width:100%;
+  padding:12px;
+  background:var(--gold);
+  border:none;
+  font-weight:700;
+  letter-spacing:2px;
+  margin-bottom:1rem;
+}
+.btn-gold:hover{
+  background:var(--gold-light);
+}
+
+.btn-outline-gold{
+  background:transparent;
+  border:1px solid var(--gold);
+  color:var(--gold);
+}
+
+/* ===== MUSIC ===== */
+.music-box{
+  position:fixed;
+  bottom:40px;
+  left:40px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:.7rem;
+  letter-spacing:2px;
+  color:var(--gold);
+  cursor:pointer;
+}
+
+/* ===== CANVAS ===== */
+canvas{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="sparkles"></canvas>
+
+<div class="stage">
+  <div class="card-3d" id="card">
+    <div class="brand" id="yearLabel">LIVE TIME 2026</div>
+    <h1>New Year</h1>
+    <div class="script">Running Time</div>
+
+    <div class="timer">
+      <div class="time-box"><span id="d">00</span><small>DAYS</small></div>
+      <div class="time-box"><span id="h">00</span><small>HOURS</small></div>
+      <div class="time-box"><span id="m">00</span><small>MIN</small></div>
+      <div class="time-box"><span id="s">00</span><small>SEC</small></div>
+    </div>
+
+    <button class="btn-gold" onclick="shareWA()">Bagikan Live Time 2026</button>
+    <button class="btn-gold btn-outline-gold" onclick="toggleMusic()">
+      <i class="bi bi-music-note-beamed me-2"></i> Music
+    </button>
+  </div>
+</div>
+
+<div class="music-box" onclick="toggleMusic()">
+  <i class="bi bi-play-circle" id="musicIcon"></i>
+  <span>PIANO</span>
+</div>
+
+<audio id="bgm" loop>
+  <source src="Spring-Flowers(chosic.com).mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* ===== 3D MOUSE EFFECT ===== */
+const card=document.getElementById('card');
+document.addEventListener('mousemove',e=>{
+  const x=(window.innerWidth/2-e.clientX)/40;
+  const y=(window.innerHeight/2-e.clientY)/40;
+  card.style.transform=`rotateY(${x}deg) rotateX(${-y}deg)`;
+});
+
+/* ===== COUNT UP TIME 2026 ===== */
+const start2026=new Date('2026-01-01T00:00:00+07:00').getTime();
+
+setInterval(()=>{
+  const now=Date.now();
+
+  if(now<start2026){
+    ['d','h','m','s'].forEach(i=>document.getElementById(i).innerText='00');
+    return;
+  }
+
+  const diff=now-start2026; // ⬅️ WAKTU MAJU
+
+  const days=Math.floor(diff/86400000);
+  const hours=Math.floor((diff%86400000)/3600000);
+  const minutes=Math.floor((diff%3600000)/60000);
+  const seconds=Math.floor((diff%60000)/1000);
+
+  document.getElementById('d').innerText=days.toString().padStart(2,'0');
+  document.getElementById('h').innerText=hours.toString().padStart(2,'0');
+  document.getElementById('m').innerText=minutes.toString().padStart(2,'0');
+  document.getElementById('s').innerText=seconds.toString().padStart(2,'0');
+},1000);
+
+/* ===== MUSIC ===== */
+const audio=document.getElementById('bgm');
+const icon=document.getElementById('musicIcon');
+function toggleMusic(){
+  if(audio.paused){
+    audio.play();
+    icon.className='bi bi-pause-circle';
+  }else{
+    audio.pause();
+    icon.className='bi bi-play-circle';
+  }
+}
+
+/* ===== SPARKLES ===== */
+const canvas=document.getElementById('sparkles');
+const ctx=canvas.getContext('2d');
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+
+const dots=[...Array(100)].map(()=>({
+  x:Math.random()*canvas.width,
+  y:Math.random()*canvas.height,
+  s:Math.random()*1.5,
+  v:Math.random()*0.6
+}));
+
+(function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle='rgba(212,175,55,.3)';
+  dots.forEach(d=>{
+    ctx.beginPath();
+    ctx.arc(d.x,d.y,d.s,0,Math.PI*2);
+    ctx.fill();
+    d.y-=d.v;
+    if(d.y<0)d.y=canvas.height;
+  });
+  requestAnimationFrame(animate);
+})();
+
+/* ===== SHARE ===== */
+function shareWA(){
+  const text=encodeURIComponent(
+    'Live Time 2026 — waktu berjalan sejak 1 Januari 2026: '+location.href
+  );
+  window.open('https://wa.me/?text='+text,'_blank');
+}
+</script>
+
+</body>
+</html>  border: 1px solid rgba(212, 175, 55, 0.1);
   border-radius: 50%;
   z-index: 1;
   pointer-events: none;
@@ -340,4 +569,5 @@ function shareWA() {
 }
 </script>
 </body>
+
 </html>
